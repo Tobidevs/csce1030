@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/tobiakere/Documents/Github/csce1030/project1'
+relocations:     []
+...
