@@ -32,8 +32,9 @@ int main() {
     cout << "Welcome " << name << "!" << endl;
 
 
+    bool display_value = false;
     bool play_again = true;
-    while (play_again) {
+    while (play_again && points > 0) {
         // Generate random numbers
         srand(time(0));
         int num1 = 50 + rand() % 51;
@@ -44,7 +45,6 @@ int main() {
             num2 = 50 + rand() % 51;
         }
         cout << "Your two random numbers have been generated." << endl;
-
 
         // Menu choice
         cout << "What would you like to do? Enter corresponding number." << endl;
@@ -61,7 +61,7 @@ int main() {
         cin >> choice;
 
         switch (choice) {
-            case add: 
+            case add: {
                 int guessed_sum;
                 int sum_of_random = num1 + num2;
                 cout << "Guess the sum of the two numbers: ";
@@ -75,7 +75,53 @@ int main() {
                     cout << "Incorrect! You now have " << points << " points." << endl;
                     
                 }
-                while (play_again_value) {
+                break;
+            }
+            case subtract: {
+                int guessed_diff;
+                int diff_of_random = num2 - num1;
+                cout << "Guess the difference of the two numbers: ";
+                cin >> guessed_diff;
+
+                if (abs(diff_of_random - guessed_diff) < 5) {
+                    points += 5;
+                    cout << "Correct! You now have " << points << " points." << endl;
+                } else {
+                    points -= 5;
+                    cout << "Incorrect! You now have " << points << " points." << endl;
+                }
+                break;
+            }
+            case display: {
+                if (!display_value) {
+                    points -= 3;
+                    cout << "The first random number is " << num1 << "." << endl;
+                    display_value = true;
+                }
+                break;
+            }
+            case giveup: {
+                cout << "The two random numbers was " << num1 << " and " << num2 << "." << endl;
+                play_again = false;
+                play_again_value = false;
+                break;
+            }
+            case exit: {
+                cout << name << ", your final points are " << points << "." << endl;
+                play_again = false;
+                play_again_value = false;
+                break;
+            }
+            default: {
+                cout << "Invalid response!" << endl;
+                play_again = true;
+                play_again_value = false;
+            }
+
+
+
+        }
+        while (play_again_value) {
                     cout << "Do you want to play agian? (y/n): ";
                     cin >> play_again_char;
                     if (play_again_char == 'y') {
@@ -89,12 +135,6 @@ int main() {
                         play_again_value = true;
                     }
                 }
-                
-                break;
-
-
-
-        }
     }
 
 
