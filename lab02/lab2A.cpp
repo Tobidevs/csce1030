@@ -5,7 +5,7 @@ The block comment ends after this line.
 // This is a single line comment. The program starts after this.
 #include <iostream>
 using namespace std;
-int main( )
+int main()
 {
 cout << "There are multiple syntax errors in this code.\n";
 cout << "These need to be fixed before you submit it.\n";

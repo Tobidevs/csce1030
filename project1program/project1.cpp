@@ -11,7 +11,7 @@ int main() {
     // 1. Display user info
     cout << "Name: John Doe" << endl;
     cout << "EUID: jdoe123" << endl;
-    cout << "Email: jdoe123@unt.      edu" << endl
+    cout << "Email: jdoe123@unt.      edu" << endl;
     cout << "Department: Computer Science" << endl;
     cout << "Course: CSCE 1030" << endl;
 
