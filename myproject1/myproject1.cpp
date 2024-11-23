@@ -25,40 +25,40 @@ int main() {
             if (!isalnum(c) && !isspace(c)) {
                 name_value = false;
                 cout << "Invalid name!" << endl;
+                break;
             }
         }
     }
 
     cout << "Welcome " << name << "!" << endl;
 
-
-    bool display_value = false;
+    srand(time(0)); // Seed random generator
     bool play_again = true;
+
     while (play_again && points > 0) {
         // Generate random numbers
-        srand(time(0));
         int num1 = 50 + rand() % 51;
         int num2 = 50 + rand() % 51;
 
-        while(num1 >= num2) {
+        while (num1 >= num2) {
             num1 = 50 + rand() % 51;
             num2 = 50 + rand() % 51;
         }
+
         cout << "Your two random numbers have been generated." << endl;
 
         // Menu choice
         cout << "What would you like to do? Enter corresponding number." << endl;
-        cout << "1. ADD" << endl;
-        cout << "2. SUBTRACT" << endl;
-        cout << "3. DISPLAY" << endl;
-        cout << "4. GIVEUP" << endl;
-        cout << "5. EXIT" << endl;
+        cout << "1. ADD\n2. SUBTRACT\n3. DISPLAY\n4. GIVEUP\n5. EXIT" << endl;
 
-        char play_again_char;
-        bool play_again_value = true;
         int choice;
         cout << "Enter choice: ";
-        cin >> choice;
+        if (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input. Please enter a number between 1 and 5.\n";
+            continue;
+        }
 
         switch (choice) {
             case add: {
@@ -73,7 +73,6 @@ int main() {
                 } else {
                     points -= 5;
                     cout << "Incorrect! You now have " << points << " points." << endl;
-                    
                 }
                 break;
             }
@@ -93,51 +92,47 @@ int main() {
                 break;
             }
             case display: {
-                if (!display_value) {
-                    points -= 3;
-                    cout << "The first random number is " << num1 << "." << endl;
-                    display_value = true;
-                }
+                points -= 3;
+                cout << "The first random number is " << num1 << "." << endl;
                 break;
             }
             case giveup: {
-                cout << "The two random numbers was " << num1 << " and " << num2 << "." << endl;
+                cout << "The two random numbers were " << num1 << " and " << num2 << "." << endl;
                 play_again = false;
-                play_again_value = false;
                 break;
             }
             case exit: {
                 cout << name << ", your final points are " << points << "." << endl;
                 play_again = false;
-                play_again_value = false;
                 break;
             }
-            default: {
+            default:
                 cout << "Invalid response!" << endl;
-                play_again = true;
-                play_again_value = false;
-            }
-
-
-
+                break;
         }
-        while (play_again_value) {
-                    cout << "Do you want to play agian? (y/n): ";
-                    cin >> play_again_char;
-                    if (play_again_char == 'y') {
-                        play_again = true;
-                        play_again_value = false;
-                    } else if (play_again_char == 'n') {
-                        play_again = false;
-                        play_again_value = false;
-                    } else {
-                        cout << "Invalid response!" << endl;
-                        play_again_value = true;
-                    }
-                }
+
+        if (points <= 0) {
+            cout << "Game over! You have run out of points." << endl;
+            break;
+        }
+
+        char play_again_char;
+        while (true) {
+            cout << "Do you want to play again? (y/n): ";
+            cin >> play_again_char;
+            if (play_again_char == 'y') {
+                play_again = true;
+                break;
+            } else if (play_again_char == 'n') {
+                play_again = false;
+                break;
+            } else {
+                cout << "Invalid response! Please enter 'y' or 'n'.\n";
+            }
+        }
     }
 
-
+    return 0;
 
     
 }
